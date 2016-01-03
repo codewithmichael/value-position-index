@@ -1,0 +1,19 @@
+{
+  "name": "value-position-index",
+  "version": "0.1.0",
+  "description": "JavaScript library to store and retrieve array data positions indexed by content value",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/codewithmichael/value-position-index.git"
+  },
+  "author": "Michael Spencer <code.with.michael@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/codewithmichael/value-position-index/issues"
+  },
+  "homepage": "https://github.com/codewithmichael/value-position-index#readme"
+}
