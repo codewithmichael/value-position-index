@@ -74,33 +74,91 @@
   //-[ Sample Usage ]-----------------------------------------------------------
 
   (function(){
-    var list = [1, "1", "two", "two", undefined, null, "null", NaN, Infinity],
-        index = new T();
+    var list, listIndex;
 
-    // Index list values
-    list.forEach(function(value, position){ index.add(value, position); })
+    // List to be indexed
+    list = [1, "1", "two", "two", undefined, null, "null", NaN, Infinity];
 
-    assert(index.find(1).length === 2
-        && index.find("undefined").length === 1
-        && index.find(null).length === 2
-        && index.find("Infinity").length === 1,
-    "Value comparison is always string-based");
+    // Index for list information
+    listIndex = new T();
 
-    assert(index.find(undefined).length === 1,
-      "Can index undefined values");
+    //-------------------
+    // Populate the index
+    //-------------------
 
-    assert(index.find(null).length === 2,
-      "Can index null values");
+    list.forEach(function(value, position){ listIndex.add(value, position); });
 
-    assert(index.find(Infinity).length === 1
-        && index.find(NaN).length === 1,
-      "Can index abstract number values");
+    //-------------------------------
+    // Locate or count indexed values
+    //-------------------------------
 
-    assert(
-      index.find(1)
-        .filter(function(v) { return list[v] === 1; })
-        .length === 1,
-      "A filter can be used to obtain strict matches");
+    // Value comparison is string based
+    var findOne = listIndex.find(1);
+    var nullCount = listIndex.find("null").length;
+    //: findOne = [0, 1]
+    assert.deepStrictEqual(findOne, [0, 1]);
+    //: nullCount = 2
+    assert.equal(nullCount, 2);
+
+    //------------------------
+    // Locate undefined values
+    //------------------------
+
+    var findUndefined = listIndex.find(undefined);
+    //: findUndefined = [4]
+    assert.deepStrictEqual(findUndefined, [4]);
+
+    //------------------------------
+    // Locate abstract number values
+    //------------------------------
+
+    var findNaN = listIndex.find(NaN);
+    var findInfinity = listIndex.find(Infinity);
+    //: findNaN = [7]
+    assert.deepStrictEqual(findNaN, [7]);
+    //: findInfinity = [8]
+    assert.deepStrictEqual(findInfinity, [8]);
+
+    //------------------------------------
+    // Locate strict matches with filter()
+    //------------------------------------
+
+    var findStringNull = listIndex
+                         .find("null")
+                         .filter(function(v) { return list[v] === "null"; });
+    //: findStringNull = [6];
+    assert.deepStrictEqual(findStringNull, [6]);
+
+    //-----------------------------------
+    // Retrieve indexed values with map()
+    //-----------------------------------
+
+    var ones = listIndex
+               .find(1)
+               .map(function(v) { return list[v]; });
+    //: ones = [1, "1"]
+    assert.deepStrictEqual(ones, [1, "1"]);
+
+    //----------------------------------
+    // Cross-reference coordinated lists
+    //----------------------------------
+
+    var players, scores, scoresIndex;
+
+    players = ['Jim', 'Scott', 'Tom'];
+    scores = [3, 5, 4];
+
+    scoresIndex = new T();
+    scores.forEach(function(v, i) { scoresIndex.add(v, i); });
+
+    var highestScore = Math.max.apply(Math, scores);
+
+    // Note: This could return multiple names in case of a tie.
+    var winner = scoresIndex
+                 .find(highestScore)
+                 .map(function(v) { return players[v]; })
+    //: winner = ['Scott']
+    assert.deepStrictEqual(winner, ['Scott']);
   }());
 
   //=[ Utility ]================================================================
