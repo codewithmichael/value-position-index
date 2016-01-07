@@ -64,6 +64,19 @@ var ones = listIndex
            .map(function(v) { return list[v]; });
 //: ones = [1, "1"]
 
+//-------------------------------
+// Track objects through removals
+//-------------------------------
+
+// Returned lists are direct index references, so they auto-update
+
+var findTwos = listIndex.find("two");
+//: findTwos = [2, 3];
+
+list.splice(0, 1);   // remove first item from array
+listIndex.remove(0); // remove same position from index
+//: findTwos = [1, 2];
+
 //----------------------------------
 // Cross-reference coordinated lists
 //----------------------------------
