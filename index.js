@@ -25,6 +25,9 @@
     };
 
     this.find = function(value) {
+      if (arguments.length === 0) {
+        return [];
+      }
       var list = this._index[valueToString(value)];
       return list ? list : [];
     };
