@@ -65,8 +65,6 @@
       }
       switch (value) {
         case null:     return 'null';
-        case Infinity: return 'Infinity';
-        case NaN:      return 'NaN';
         default:       return value.toString();
       }
     }
