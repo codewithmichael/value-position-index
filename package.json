@@ -1,6 +1,6 @@
 {
   "name": "value-position-index",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "JavaScript library to store and retrieve array data positions indexed by content value",
   "main": "index.js",
   "scripts": {

@@ -52,6 +52,13 @@
   assert(populated_t().find('three').length === 3,
     "Calling find() with a value will return an array containing a three elements when the value has been stored three times");
 
+  (function(){
+    var t = new T();
+    t.add(undefined, 0);
+    assert(t.find().length === 0,
+      "Calling find() with no arguments will return an empty array, not the \"undefined\" index");
+  }());
+
   //-[ remove ]-*
 
   assert(new T().remove(0) === false,

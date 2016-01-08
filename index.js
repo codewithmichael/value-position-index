@@ -2,7 +2,7 @@
  * @license Value Position Index
  * (c) 2016 Michael Spencer
  * License: MIT
- * Version: 0.1.0
+ * Version: 0.1.1
  */
 ;(function() {
   "use strict";
@@ -25,6 +25,9 @@
     };
 
     this.find = function(value) {
+      if (arguments.length === 0) {
+        return [];
+      }
       var list = this._index[valueToString(value)];
       return list ? list : [];
     };
@@ -62,8 +65,6 @@
       }
       switch (value) {
         case null:     return 'null';
-        case Infinity: return 'Infinity';
-        case NaN:      return 'NaN';
         default:       return value.toString();
       }
     }
